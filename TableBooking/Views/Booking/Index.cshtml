@@ -1,0 +1,69 @@
+﻿@model List<Table>
+
+<h2>Book a table for Yoursels</h2>
+
+
+<div>
+    <label>current date: </label>
+    <span id="currentDate">@ViewBag.Date</span>
+</div>
+
+<div>
+    <label>current time: </label>
+    <span id="currentTime">@ViewBag.Time</span>
+</div>
+
+<hr />
+
+<<form method="get" asp-action="Index" id="searchForm">
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" value="@ViewBag.Date" onchange="document.getElementById('searchForm').submit()" />
+
+    <label for="startTime">time from:</label>
+    <input type="time" name="startTime" id="startTime" value="@ViewBag.Time" onchange="document.getElementById('searchForm').submit()" />
+
+    <label for="endTime">time end:</label>
+    <input type="time" name="endTime" id="endTime" value="@ViewBag.EndTime" onchange="document.getElementById('searchForm').submit()" />
+
+
+    <button type="submit">Find</button>
+</form>
+
+<hr />
+
+<!-- table -->
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Seats</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var table in Model)
+        {
+            <tr>
+                <td>@table.Id</td>
+                <td>@table.Capacity</td>
+                <td><a asp-controller="Booking" asp-action="TableById" asp-route-tableId="@table.Id" class="btn btn-primary">check and reserve</a></td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const date = now.toISOString().split('T')[0];
+
+        document.getElementById("currentDate").textContent = date;
+        document.getElementById("currentTime").textContent = time;
+    }
+
+    setInterval(updateClock, 1000); 
+</script>

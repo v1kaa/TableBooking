@@ -1,0 +1,40 @@
+﻿@model Table
+
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Success"]
+    </div>
+}
+<h1>You choose this table:</h1>
+<h1> table id: @Model.Id</h1>
+<h1>table capacity: @Model.Capacity</h1>
+<hr />
+<h2>Pleasee choose a date and tume and book a table</h2>
+<br />
+
+<form method="post" asp-action="MakeReservation">
+    <input type="hidden" name="tableId" value="@Model.Id" />
+
+    <label for="date">Date:</label>
+    <input type="date" name="date" id="date" required />
+
+    <label for="startTime">time from:</label>
+    <input type="time" name="startTime" id="startTime" required />
+
+    <label for="endTime">time end:</label>
+    <input type="time" name="endTime" id="endTime" required />
+
+    <br /><br />
+    <button type="submit" class="btn btn-success">
+		Reserve Table
+    </button>
+</form>

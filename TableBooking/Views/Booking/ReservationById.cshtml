@@ -1,0 +1,19 @@
+﻿@model Reservation
+
+
+
+<h1>reservation done</h1>
+<h1> reservation id: @Model.Id</h1>
+<h1> table id: @Model.TableId</h1>
+<h1> table capacity: @Model.Table.Capacity</h1>
+<h1> reservation date: @Model.Date</h1>
+<h1> reservation start time: @Model.StartTime</h1>
+<h1> reservation end time: @Model.EndTime</h1>
+<hr/>
+<form method="post" asp-action="DeleteReservationById" asp-route-reservationId="@Model.Id" onsubmit="return confirm('Are you sure you want to delete this reservation?');">
+    <input type="hidden" name="_method" value="DELETE" />
+    <button type="submit" class="btn btn-danger">Delete Reservation</button>
+</form>
+<a asp-action="Index" class="btn btn-success">Main View</a>
+
+
